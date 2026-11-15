@@ -45,4 +45,16 @@ public class EmployeController {
     public void supprimerEmploye(@PathVariable Long idEmploye) {
         employeService.supprimerEmploye(idEmploye);
     }
+
+    @Operation(summary = "Désaffecter un employé de son agence")
+    @PutMapping("/desaffecterEmploye/{idEmploye}")
+    public Employe desaffecterEmploye(@PathVariable Long idEmploye) {
+        return employeService.desaffecterEmploye(idEmploye);
+    }
+
+    @Operation(summary = "Affecter un employé à une agence")
+    @PutMapping("/affecterEmploye/{idEmploye}/{idAgence}")
+    public Employe affecterEmploye(@PathVariable Long idEmploye, @PathVariable Long idAgence) {
+        return employeService.affecterEmploye(idEmploye, idAgence);
+    }
 }

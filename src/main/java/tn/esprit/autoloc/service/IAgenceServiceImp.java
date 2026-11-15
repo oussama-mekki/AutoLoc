@@ -1,9 +1,11 @@
 package tn.esprit.autoloc.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.domain.Agence;
+import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.repository.AgenceRepository;
 
 import java.util.List;
@@ -39,5 +41,14 @@ public class IAgenceServiceImp  implements IAgenceService{
     @Override
     public void supprimerAgence(Long id) {
         agenceRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public Agence ajouterAgenceEtAffecterVehicules(Agence agence) {
+        for (Vehicule vehicule : agence.getVehicules()) {
+            vehicule.setAgence(agence);
+        }
+        return agenceRepository.save(agence);
     }
 }
